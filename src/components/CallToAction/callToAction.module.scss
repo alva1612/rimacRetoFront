@@ -1,0 +1,37 @@
+.callToAction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 1rem;
+  &__chip {
+    width: fit-content;
+    background: rgb(0, 244, 226);
+    background: linear-gradient(
+      90deg,
+      rgba(0, 244, 226, 1) 0%,
+      rgba(0, 255, 127, 1) 100%
+    );
+    padding: 2px 8px;
+    border-radius: 4px;
+    height: 20px;
+  }
+  &__chipText {
+    font-weight: 700;
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  &__titleCont {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+  }
+}

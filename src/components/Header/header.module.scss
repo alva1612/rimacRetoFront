@@ -1,0 +1,33 @@
+@use "@/scss/_vars" as *;
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+
+  &__contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  &__contactText {
+    display: none;
+    @media (min-width: $breakpoint-md) {
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: $text-color;
+    }
+  }
+
+  &__contactPhone {
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.25rem;
+    display: flex;
+    align-items: center;
+  }
+}
