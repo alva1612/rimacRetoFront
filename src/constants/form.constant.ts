@@ -1,4 +1,4 @@
-import { z, ZodTypeAny } from "zod";
+import { z } from "zod";
 
 export const FORM_ERROR_MESSAGE = {
   required: "Obligatorio",
