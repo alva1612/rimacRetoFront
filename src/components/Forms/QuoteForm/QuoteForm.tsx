@@ -85,9 +85,8 @@ export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
                 control={form.control}
                 name="documentNumber"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex-1">
                     <InputLabel
-                      className={cn("flex-1")}
                       inputProps={{
                         ...field,
                         className: styles.quoteForm__documentNumberInput,
