@@ -1,9 +1,19 @@
 "use client";
 
+import { FC } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Form, FormField } from "@/components/ui/form";
-import { Input, InputLabel } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { InputLabel } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -13,8 +23,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { ClassNameProp } from "@/types/props.common";
-import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { quoteFormSchema } from "@/constants/form.constant";
 
 import styles from "./quoteForm.module.scss";
 
@@ -22,14 +31,20 @@ type Inputs = {
   documentType: "DNI" | "CE";
   documentNumber: string;
   phoneNumber: string;
+  privacy: boolean;
+  commercials: boolean;
 };
 
 export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
-  const form = useForm<Inputs>({ defaultValues: { documentType: "DNI" } });
+  const form = useForm<Inputs>({
+    defaultValues: { documentType: "DNI" },
+    resolver: zodResolver(quoteFormSchema),
+    mode: "all",
+  });
 
   const onSubmit = () => {};
-
-  console.log(form.watch());
+  console.log(form.getValues());
+  console.log(form.formState.errors);
 
   return (
     <div className={cn(className)}>
@@ -41,11 +56,15 @@ export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
           <div>
             <div className="flex w-full">
               <FormField
-                {...form.control}
+                control={form.control}
                 name="documentType"
                 render={({ field }) => (
                   <Select
-                    onValueChange={field.onChange}
+                    onValueChange={(v) => {
+                      field.onChange(v);
+                      if (form.formState.dirtyFields["documentNumber"])
+                        form.trigger("documentNumber");
+                    }}
                     defaultValue={field.value}
                   >
                     <SelectTrigger
@@ -62,43 +81,102 @@ export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
                   </Select>
                 )}
               ></FormField>
-              <InputLabel
-                className={cn("flex-1")}
-                inputProps={{
-                  ...form.register("documentNumber"),
-                  className: styles.quoteForm__documentNumberInput,
-                }}
-                labelProps={{ label: "Nro. de documento" }}
+              <FormField
+                control={form.control}
+                name="documentNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <InputLabel
+                      className={cn("flex-1")}
+                      inputProps={{
+                        ...field,
+                        className: styles.quoteForm__documentNumberInput,
+                      }}
+                      labelProps={{ label: "Nro. de documento" }}
+                    />
+                  </FormItem>
+                )}
               />
             </div>
+            <FormField
+              name="documentNumber"
+              render={() => <FormMessage className="mt-2" />}
+            />
           </div>
-          <InputLabel
-            labelProps={{ label: "Celular" }}
-            inputProps={{ ...form.register("phoneNumber") }}
+          <FormField
+            control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem>
+                <InputLabel
+                  labelProps={{ label: "Celular" }}
+                  inputProps={{
+                    ...field,
+                  }}
+                />
+                <FormMessage />
+              </FormItem>
+            )}
           />
           <div className="flex flex-col gap-4 mt-2">
-            <div className="flex items-center space-x-3">
-              <Checkbox id="privacy" className="w-5 h-5" />
-              <label
-                htmlFor="privacy"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Acepto la Política de Privacidad
-              </label>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Checkbox id="terms" className="w-5 h-5" />
-              <label
-                htmlFor="terms"
-                className="text-sm font-medium leading-6 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Acepto la Política Comunicaciones Comerciales
-              </label>
-            </div>
+            <FormField
+              control={form.control}
+              name="privacy"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center space-x-3">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        id="privacy"
+                        className="w-5 h-5"
+                      />
+                    </FormControl>
+                    <label
+                      htmlFor="privacy"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Acepto la Política de Privacidad
+                    </label>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="commercials"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center space-x-3">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        id="commercials"
+                        className="w-5 h-5"
+                      />
+                    </FormControl>
+                    <label
+                      htmlFor="commercials"
+                      className="text-sm font-medium leading-6 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Acepto la Política Comunicaciones Comerciales
+                    </label>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            ></FormField>
             <a className="text-xs underline font-semibold mb-2" href="">
               Aplican Términos y Condiciones.
             </a>
-            <Button size="lg" className={cn("h-14", styles.quoteForm__button)}>
+            <Button
+              size="lg"
+              disabled={!form.formState.isValid}
+              className={cn("h-14", styles.quoteForm__button)}
+            >
               Cotiza aquí
             </Button>
           </div>
