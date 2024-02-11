@@ -26,8 +26,10 @@ import { ClassNameProp } from "@/types/props.common";
 import { quoteFormSchema } from "@/constants/form.constant";
 
 import styles from "./quoteForm.module.scss";
+import { useQuotationStore } from "@/state";
+import { useRouter } from "next/navigation";
 
-type Inputs = {
+export type InputsQuoteForm = {
   documentType: "DNI" | "CE";
   documentNumber: string;
   phoneNumber: string;
@@ -36,15 +38,27 @@ type Inputs = {
 };
 
 export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
-  const form = useForm<Inputs>({
+  const router = useRouter();
+
+  const form = useForm<InputsQuoteForm>({
     defaultValues: { documentType: "DNI" },
     resolver: zodResolver(quoteFormSchema),
     mode: "all",
   });
 
-  const onSubmit = () => {};
-  console.log(form.getValues());
-  console.log(form.formState.errors);
+  const startQuotation = useQuotationStore((s) => s.startQuotation);
+
+  const onSubmit = (v: InputsQuoteForm) => {
+    console.log(v);
+    const success = startQuotation(v);
+    if (!success) {
+      alert("Error en el formulario");
+      form.reset();
+      return;
+    }
+
+    router.push("quotation");
+  };
 
   return (
     <div className={cn(className)}>
