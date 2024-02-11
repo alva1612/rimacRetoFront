@@ -1,8 +1,8 @@
 import { ClassNameProp } from "@/types/props.common";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import styles from "./callToAction.module.scss";
 
-export const CallToAction: FC<PropsWithChildren<ClassNameProp>> = () => {
+export const CallToAction: FC<ClassNameProp> = () => {
   return (
     <div className={styles.callToAction}>
       <div className={styles.callToAction__chip}>

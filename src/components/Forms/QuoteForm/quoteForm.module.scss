@@ -1,0 +1,22 @@
+@use "@/scss/_vars" as *;
+
+.quoteForm {
+  &__documentTypeSelect {
+    border-color: $input-secondary;
+    border-radius: 8px 0px 0px 8px;
+    font-size: 1rem;
+    padding: 16px;
+    max-width: 140px;
+  }
+
+  &__documentNumberInput {
+    border-radius: 0px 8px 8px 0px;
+  }
+
+  &__button {
+    border-radius: 40px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.25rem;
+  }
+}

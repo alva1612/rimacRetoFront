@@ -1,0 +1,21 @@
+@use "@/scss/_vars" as *;
+
+.inputLabelField {
+  position: relative;
+}
+
+.inputLabel {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: $input-secondary;
+}
+
+.input {
+  padding-top: 26px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  border-color: $input-secondary;
+}
