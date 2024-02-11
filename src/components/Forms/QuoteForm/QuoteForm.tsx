@@ -90,6 +90,8 @@ export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
                       inputProps={{
                         ...field,
                         className: styles.quoteForm__documentNumberInput,
+                        maxLength:
+                          form.getValues("documentType") === "DNI" ? 8 : 12,
                       }}
                       labelProps={{ label: "Nro. de documento" }}
                     />
@@ -111,6 +113,7 @@ export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
                   labelProps={{ label: "Celular" }}
                   inputProps={{
                     ...field,
+                    maxLength: 9,
                   }}
                 />
                 <FormMessage />
