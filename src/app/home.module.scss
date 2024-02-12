@@ -37,10 +37,10 @@
   }
 
   @media (min-width: $breakpoint-md) {
-    padding: 0 48px;
-    padding-bottom: 96px;
+    padding: 32px 120px;
+    padding-bottom: 112px;
     grid-template-columns: 1fr 1fr;
-    column-gap: 24px;
+    column-gap: clamp(24px, 10vw, 128px);
     row-gap: 24px;
 
     &__callToAction {
