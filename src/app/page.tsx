@@ -14,8 +14,8 @@ export default function Home() {
         <Image
           className={styles.home__frontImg}
           src="/Home/front_img.png"
-          width={136}
-          height={160}
+          width={480}
+          height={560}
           sizes="(min-width: 768px) 480px, 136px"
           alt="front_img"
         />
