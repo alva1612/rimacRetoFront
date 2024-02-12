@@ -40,7 +40,7 @@ const Recipients: RecipientCardProps[] = [
   },
 ];
 
-const page = () => {
+const Page: FC = () => {
   const userName = useQuotationStore((s) => s.userData?.name);
   const userAge = useQuotationStore((s) => s.computed.userAge);
   const selectedRecipient = useQuotationStore((s) => s.planData.recipient);
@@ -88,6 +88,7 @@ const page = () => {
             <div className="flex flex-col gap-8 py-8">
               {Recipients.map((data) => (
                 <RecipientCard
+                  key={data.value}
                   {...data}
                   checked={data.value === selectedRecipient}
                 />
@@ -100,8 +101,8 @@ const page = () => {
               <>
                 <Carousel setApi={setApi}>
                   <CarouselContent className="px-6 py-8">
-                    {availablePlans.map((plan) => (
-                      <CarouselItem>
+                    {availablePlans.map((plan, i) => (
+                      <CarouselItem key={i}>
                         <PlanCard {...plan} />
                       </CarouselItem>
                     ))}
@@ -130,4 +131,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

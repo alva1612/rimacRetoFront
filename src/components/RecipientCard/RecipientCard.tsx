@@ -100,8 +100,8 @@ export const PlanCard: FC<PlanInfo> = (data) => {
       </div>
       <Separator className="bg-[#D7DBF5]" />
       <ul className="list-disc">
-        {description.map((desc) => (
-          <li>{desc}</li>
+        {description.map((desc, i) => (
+          <li key={i}>{desc}</li>
         ))}
       </ul>
 
