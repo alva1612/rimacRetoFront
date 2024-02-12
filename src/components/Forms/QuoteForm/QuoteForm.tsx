@@ -50,14 +50,15 @@ export const QuoteForm: FC<ClassNameProp> = ({ className }) => {
 
   const onSubmit = (v: InputsQuoteForm) => {
     console.log(v);
-    const success = startQuotation(v);
-    if (!success) {
-      alert("Error en el formulario");
-      form.reset();
-      return;
-    }
+    startQuotation(v).then((success) => {
+      if (!success) {
+        alert("Error en el formulario");
+        form.reset();
+        return;
+      }
 
-    router.push("quotation");
+      router.push("quotation");
+    });
   };
 
   return (
