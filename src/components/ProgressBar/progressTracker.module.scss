@@ -1,0 +1,23 @@
+@use "@/scss/_vars" as *;
+
+.progressTracker {
+  &__bar {
+    &::before {
+      content: "";
+      position: absolute;
+      border-radius: 40px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 10px;
+      background-color: $button-active-color;
+    }
+
+    &_active {
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      background-color: $button-active-color;
+    }
+  }
+}

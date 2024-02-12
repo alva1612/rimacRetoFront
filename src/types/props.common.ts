@@ -3,3 +3,5 @@ export interface ClassNameProp {
 }
 
 export type Optional<T> = T | null;
+
+export type Recipient = "OWN" | "SOMEONE-ELSE";

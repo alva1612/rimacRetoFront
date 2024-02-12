@@ -1,9 +1,15 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 interface Props {
   variant?: "color" | "white";
 }
 export const Logo: FC<Props> = ({ variant = "color" }) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push("/");
+  };
   if (variant === "color")
     return (
       <svg
@@ -12,6 +18,8 @@ export const Logo: FC<Props> = ({ variant = "color" }) => {
         viewBox="0 0 74 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="cursor-pointer"
+        onClick={handleClick}
       >
         <g clip-path="url(#clip0_12_155789)">
           <path
@@ -29,12 +37,13 @@ export const Logo: FC<Props> = ({ variant = "color" }) => {
   return (
     <>
       <svg
-        className="block md:hidden"
+        className="block md:hidden cursor-pointer"
         width="138"
         height="20"
         viewBox="0 0 138 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        onClick={handleClick}
       >
         <path
           d="M115.436 4.79274C114.87 4.83792 114.284 5.07287 113.676 5.859L104.927 17.6751H108.522L110.306 15.0306H116.837L117.514 17.6811H121.024L117.645 6.44934C117.189 5.07286 116.323 4.71443 115.436 4.79274ZM111.816 12.8528L115.211 8.39509L116.274 12.8528H111.816Z"
